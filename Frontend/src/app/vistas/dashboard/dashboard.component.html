@@ -1,24 +1,14 @@
 <div class="dashboard-layout">
   <nav class="sidebar">
-    <button (click)="logout()" class="logout-button">Cerrar Sesión</button>
-    <!-- Aquí puedes añadir más enlaces o botones para la navegación lateral -->
+    <app-welcome *ngIf="userDetails"></app-welcome>
   </nav>
   <div class="dashboard-content">
     <header class="dashboard-topbar">
       <h1 class="dashboard-topbar-title">Dashboard</h1>
-      <!-- Puedes agregar más elementos a la barra superior si es necesario -->
+      <button (click)="logout()" class="logout-button">Cerrar Sesión</button>
     </header>
     <div class="dashboard-main-content">
-      <div class="stats-container">
-        <div class="stat-item">
-          <p class="stat-title">Active users:</p>
-          <p class="stat-value">{{ activeUsersCount }}</p>
-        </div>
-        <div class="stat-item">
-          <p class="stat-title">Blocked users:</p>
-          <p class="stat-value">{{ blockedUsersCount }}</p>
-        </div>
-      </div>
+
     </div>
   </div>
 </div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../services/dashboard.service';
 import { AuthService } from '../../services/auth.service'; // Asegúrate de tener este servicio
 import { Router } from '@angular/router'; // Para redirigir al usuario después del logout
-
+import { UserDetails } from '../../models/user-details.model';
 @Component({
   selector: 'app-dashboard',
   standalone: false,
@@ -12,7 +12,7 @@ import { Router } from '@angular/router'; // Para redirigir al usuario después 
 export class DashboardComponent implements OnInit {
   blockedUsersCount: number = 0;
   activeUsersCount: number = 0; // Definición de la variable
-
+  userDetails: UserDetails | null = null;
   constructor(
     private dashboardService: DashboardService,
     private authService: AuthService, // Inyecta el AuthService
@@ -20,10 +20,16 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadUserDetails();
     this.loadActiveUsers();
     this.blockedUsersCount = 0;
   }
-
+  loadUserDetails() {
+    const userDetailsJson = localStorage.getItem('userDetails');
+    if (userDetailsJson) {
+      this.userDetails = JSON.parse(userDetailsJson);
+    }
+  }
   loadActiveUsers(): void {
     this.dashboardService.getActiveUsersCount().subscribe(
       (count: number) => {

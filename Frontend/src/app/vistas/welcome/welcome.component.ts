@@ -1,29 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
 interface User {
-  name: string;
-  // puedes añadir más propiedades según sea necesario
+  idUsuario: number;
+  userName: string;
+  mail: string;
+  personaByPersonaIdPersona2: {
+    identificacion: string;
+    apellido: string;
+    idPersona: number;
+    nombres: string;
+    fechaNacimiento: string;
+  };
+  rolUsuariosByIdUsuario: any[];
 }
+
+
+// Registro de la localización en español
+registerLocaleData(localeEs);
+
 @Component({
   selector: 'app-welcome',
-  standalone: false,
-  templateUrl: 'welcome.component.html',
-  styleUrl: 'welcome.component.css'
+  templateUrl: './welcome.component.html',
+  styleUrls: ['./welcome.component.css'],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es-ES' } // Configura el locale a español de España
+  ]
 })
-export class WelcomeComponent {
-  user: User; // Agrega la propiedad user aquí
-  lastLoginDate: Date;
-  // ...
+export class WelcomeComponent implements OnInit {
+  userDetails: User | null = null;
 
-  constructor() {
-    // Inicializa las propiedades
-    this.lastLoginDate = new Date(); // o la fecha que corresponda
-    this.user = {
-      name: 'Nombre de Usuario', // Este valor se mostrará como placeholder
-      // inicializa otras propiedades si son necesarias
-    };
-  }
+  constructor() {}
+
   ngOnInit(): void {
-    // Aquí normalmente obtendrías los datos del usuario de un servicio
-    // y actualizarías la propiedad user con esos datos.
+    const userDetails = localStorage.getItem('userDetails');
+    if (userDetails) {
+      this.userDetails = JSON.parse(userDetails);
+    }
   }
 }

@@ -1,5 +1,10 @@
 <!-- welcome.component.html -->
-<div class="welcome-container">
-  <h1>Welcome, {{ user.name }}!</h1>
-  <p>Your last login was on {{ lastLoginDate }}</p>
+<div *ngIf="userDetails" class="welcome-container">
+  <h1>BIENVENIDO, {{ userDetails.personaByPersonaIdPersona2.nombres + " " + userDetails.personaByPersonaIdPersona2.apellido }}!</h1>
+  <div class="user-info">
+    <p><span>Nombre de Usuario:</span> {{ userDetails.userName }}</p>
+    <p><span>Correo:</span> {{ userDetails.mail }}</p>
+    <p><span>Fecha de Nacimiento:</span> {{ userDetails.personaByPersonaIdPersona2.fechaNacimiento | date:'fullDate' }}</p>
+    <p><span>ID de Usuario:</span> {{ userDetails.idUsuario }}</p>
+  </div>
 </div>

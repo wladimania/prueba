@@ -5,6 +5,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
+import { UserDetails } from '../models/user-details.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +32,7 @@ export class AuthService {
       tap(response => {
         if (response.status === 200 && response.body) {
           localStorage.setItem('idUsuario', response.body.idUsuario.toString());
+          localStorage.setItem('userDetails', JSON.stringify(response.body));
           this.router.navigate(['/dashboard']);
         }
       }),
