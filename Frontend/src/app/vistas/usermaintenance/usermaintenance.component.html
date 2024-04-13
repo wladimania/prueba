@@ -1,0 +1,17 @@
+<!-- user-maintenance.component.html -->
+<div class="user-maintenance-container">
+  <button (click)="onLoadUsers()">Load Users from File</button>
+  <form (ngSubmit)="onSubmitUser()">
+    <!-- Campos para añadir o editar usuarios -->
+    <div class="form-group">
+      <label for="userName">User Name</label>
+      <input type="text" class="form-control" id="userName" [(ngModel)]="user.userName" name="userName">
+    </div>
+    <div class="form-group">
+      <label for="userEmail">Email</label>
+      <input type="email" class="form-control" id="userEmail" [(ngModel)]="user.email" name="userEmail">
+    </div>
+    <!-- Añadir más campos según sea necesario -->
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>
