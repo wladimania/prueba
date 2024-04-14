@@ -27,7 +27,6 @@ public class SessionController {
     @PostMapping("/login")
     public ResponseEntity <?> login(@RequestBody UsuariosEntity usuario) {
         try {
-           // sessionsServices.iniciarSesion(usuario);
             return ResponseEntity.ok().body(sessionsServices.iniciarSesion(usuario));
         } catch (Exception e) {
             return new ResponseEntity<>("Error al iniciar sesión: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

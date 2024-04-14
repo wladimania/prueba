@@ -38,8 +38,8 @@ public class UsuarioController {
             return new ResponseEntity<>("Error al crear el usuario: Identificación ya registrada ", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PostMapping("/admin/usuarios")
-    public ResponseEntity<?> getUsuariosIfAdmin(@RequestBody Integer idUsuario) {
+    @PostMapping("/admin/usuarios/{idUsuario}")
+    public ResponseEntity<?> getUsuariosIfAdmin(@PathVariable("idUsuario")Integer idUsuario) {
         try {
             List<UsuarioDetails> usuarios = usuariosServices.findAllUsuariosIfAdmin(idUsuario);
             return new ResponseEntity<>(usuarios, HttpStatus.OK);
