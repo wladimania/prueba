@@ -1,16 +1,21 @@
 <div class="dashboard-layout">
   <nav class="sidebar">
     <app-welcome *ngIf="userDetails"></app-welcome>
-  </nav>
+    </nav>
   <div class="dashboard-content">
     <header class="dashboard-topbar">
       <h1 class="dashboard-topbar-title">Dashboard</h1>
       <button (click)="logout()" class="logout-button">Cerrar Sesión</button>
+      <button *ngIf="usersList && usersList.length > 0" class="massive-upload-button" (click)="openFileUploader()">Carga Masiva</button>
+      <input type="file" id="fileUploader" accept=".csv,.xlsx" style="display: none" (change)="handleFileInput($event)">
     </header>
     <div class="dashboard-main-content">
-      <h2>Lista de Usuarios</h2>
-      <div class="table-container">
+      <div *ngIf="!usersList || usersList.length === 0" class="welcome-message">
+        <h2>Bienvenido</h2>
+      </div>
+      <div *ngIf="usersList && usersList.length > 0" class="table-container">
         <table>
+          <caption style="font-size: 1.2em; font-weight: bold;">Lista de Usuarios</caption> <!-- Título de la tabla -->
           <thead>
           <tr>
             <th>ID Usuario</th>

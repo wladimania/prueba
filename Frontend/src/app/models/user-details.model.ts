@@ -1,7 +1,8 @@
 export interface UserDetails {
   userName: string;
-  idUsuario: number;
+  idUsuario?: number | null;
   mail: string;
+  password: string;
   status: string;
   intentoFallido: number;
   personaByPersonaIdPersona2: {
