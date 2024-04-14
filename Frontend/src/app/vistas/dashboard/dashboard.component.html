@@ -9,34 +9,38 @@
     </header>
     <div class="dashboard-main-content">
       <h2>Lista de Usuarios</h2>
-      <table>
-        <thead>
-        <tr>
-          <th>ID Usuario</th>
-          <th>Nombre de Usuario</th>
-          <th>Correo Electrónico</th>
-          <th>Detalles de la Persona</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let user of usersList">
-          <td>{{ user.idUsuario }}</td>
-          <td>{{ user.userName }}</td>
-          <td>{{ user.mail }}</td>
-          <td>
-            <ul>
-              <li>ID Persona: {{ user.personaByPersonaIdPersona2.idPersona }}</li>
-              <li>Nombre: {{ user.personaByPersonaIdPersona2.nombres }}</li>
-              <li>Apellido: {{ user.personaByPersonaIdPersona2.apellido }}</li>
-              <li>Identificación: {{ user.personaByPersonaIdPersona2.identificacion }}</li>
-              <li>Fecha de Nacimiento: {{ user.personaByPersonaIdPersona2.fechaNacimiento }}</li>
-            </ul>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <div class="table-container">
+        <table>
+          <thead>
+          <tr>
+            <th>ID Usuario</th>
+            <th>Nombre de Usuario</th>
+            <th>Correo Electrónico</th>
+            <th>Status</th>
+            <th>Intentos Fallidos</th>
+            <th>Detalles de la Persona</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of usersList">
+            <td class="center">{{ user.idUsuario }}</td>
+            <td class="center">{{ user.userName }}</td>
+            <td class="center">{{ user.mail }}</td>
+            <td class="center">{{ user.status }}</td>
+            <td class="center">{{ user.intentoFallido }}</td>
+            <td>
+              <ul>
+                <li>ID Persona: {{ user.personaByPersonaIdPersona2.idPersona }}</li>
+                <li>Nombre: {{ user.personaByPersonaIdPersona2.nombres }}</li>
+                <li>Apellido: {{ user.personaByPersonaIdPersona2.apellido }}</li>
+                <li>Identificación: {{ user.personaByPersonaIdPersona2.identificacion }}</li>
+                <li>Fecha de Nacimiento: {{ user.personaByPersonaIdPersona2.fechaNacimiento }}</li>
+              </ul>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-
-
   </div>
 </div>

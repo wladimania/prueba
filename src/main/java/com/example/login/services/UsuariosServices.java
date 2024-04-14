@@ -199,13 +199,20 @@ public class UsuariosServices {
                 usuario.getPersonaByPersonaIdPersona2().getFechaNacimiento()
         );
 
+        // Asegúrate de convertir el intentoFallido a Integer si es necesario
+        Integer intentoFallido = usuario.getIntentoFallido() != null ? usuario.getIntentoFallido() : 0;
+
         return new UsuarioDetailsImpl(
                 usuario.getIdUsuario(),
                 usuario.getUserName(),
                 usuario.getMail(),
+                usuario.getStatus(),
+                intentoFallido,
                 rolesInterface,
                 personaInterface
         );
     }
+
+
 
 }

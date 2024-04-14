@@ -6,21 +6,23 @@ public class UsuarioDetailsImpl implements UsuarioDetails {
     private Integer idUsuario;
     private String userName;
     private String mail;
+    private String status;
+    private Integer intentoFallido;
     private List<RolUsuariosInterface> rolUsuariosByIdUsuario;
     private PersonaInterface personaByPersonaIdPersona2;
 
-    // Constructor completo
-    public UsuarioDetailsImpl(Integer idUsuario, String userName, String mail,
-                              List<RolUsuariosInterface> rolUsuariosByIdUsuario,
-                              PersonaInterface personaByPersonaIdPersona2) {
+    public UsuarioDetailsImpl(Integer idUsuario, String userName, String mail, String status, Integer intentoFallido,
+                              List<RolUsuariosInterface> rolUsuariosByIdUsuario, PersonaInterface personaByPersonaIdPersona2) {
         this.idUsuario = idUsuario;
         this.userName = userName;
         this.mail = mail;
+        this.status = status;
+        this.intentoFallido = intentoFallido;
         this.rolUsuariosByIdUsuario = rolUsuariosByIdUsuario;
         this.personaByPersonaIdPersona2 = personaByPersonaIdPersona2;
     }
 
-    // Implementación de los métodos de la interfaz UsuarioDetails
+
     @Override
     public Integer getIdUsuario() {
         return idUsuario;
@@ -35,6 +37,17 @@ public class UsuarioDetailsImpl implements UsuarioDetails {
     public String getMail() {
         return mail;
     }
+
+    @Override
+    public String getStatus() {
+        return status;
+    }
+
+    @Override
+    public Integer getIntentoFallido() {
+        return intentoFallido;
+    }
+
 
     @Override
     public List<RolUsuariosInterface> getRolUsuariosByIdUsuario() {
@@ -57,6 +70,14 @@ public class UsuarioDetailsImpl implements UsuarioDetails {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setIntentoFallido(Integer intentoFallido) {
+        this.intentoFallido = intentoFallido;
     }
 
     public void setRolUsuariosByIdUsuario(List<RolUsuariosInterface> rolUsuariosByIdUsuario) {

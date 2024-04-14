@@ -6,7 +6,7 @@ export interface User {
   sessionActive: string;
   personaIdPersona2: number;
   status: string;
-  intentoFallido: number;
+  intentofallido: number;
   // Suponiendo que RolUsuariosEntity y SessionsEntity se refieran a RolUsuarios y Sessions
   // rolUsuariosByIdUsuario?: RolUsuarios[];
   // sessionsByIdUsuario?: Sessions[];
