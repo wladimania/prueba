@@ -24,9 +24,6 @@ export class AuthService {
       catchError(this.handleError)
     );
   }
-
-
-
   login(userName: string, password: string): Observable<HttpResponse<User>> {
     return this.http.post<User>(this.loginUrl, { userName, password }, { observe: 'response' }).pipe(
       tap(response => {
@@ -39,7 +36,6 @@ export class AuthService {
       catchError(this.handleError)
     );
   }
-
   logout(idUsuario: number | null): Observable<any> {
     if (idUsuario === null) {
       console.error('User ID is null, cannot logout');

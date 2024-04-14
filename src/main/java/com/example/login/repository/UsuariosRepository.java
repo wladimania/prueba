@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface UsuariosRepository extends JpaRepository<UsuariosEntity, Integer> {
-    List<UsuariosEntity> findAllByIdUsuario(Integer idUsuario);
     boolean existsByUserName(String userName);
     Optional<UsuariosEntity> findByMail(String mail);
     boolean existsByMail(String mail);
@@ -22,4 +21,11 @@ public interface UsuariosRepository extends JpaRepository<UsuariosEntity, Intege
 
     @Query("SELECT u FROM UsuariosEntity u WHERE u.idUsuario=?1  AND u.status='Activo'")
     UsuarioDetails buscarusuarioid(Integer idusuario);
+
+
+    @Query("SELECT r.rolName FROM RolUsuariosEntity ru JOIN ru.rolByRolIdRol r WHERE ru.usuariosIdUsuario = :idUsuario")
+    List<String> findRolNamesByUsuarioId(@Param("idUsuario") Integer idUsuario);
+
+
+
 }

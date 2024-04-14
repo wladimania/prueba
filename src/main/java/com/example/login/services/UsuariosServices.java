@@ -4,9 +4,14 @@ import com.example.login.entity.PersonaEntity;
 import com.example.login.entity.UsuariosEntity;
 import com.example.login.repository.PersonaRepository;
 import com.example.login.repository.UsuariosRepository;
+import com.example.login.util.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.example.login.entity.RolUsuariosEntity;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 
@@ -165,4 +170,42 @@ public class UsuariosServices {
     public void actualizarUsuario(UsuariosEntity usuario) {
         usuariosRepository.save(usuario);
     }
+
+// En tu UsuariosServices
+
+    public List<UsuarioDetails> findAllUsuariosIfAdmin(Integer idUsuario) {
+        System.out.println("ID de usuario recibido: " + idUsuario);
+        List<String> roles = usuariosRepository.findRolNamesByUsuarioId(idUsuario);
+        System.out.println("Roles del usuario con ID " + idUsuario + ": " + roles);
+        if (roles == null || !roles.contains("Admin")) {
+            throw new SecurityException("Acceso denegado. El usuario no tiene privilegios de administrador.");
+        }
+
+        return usuariosRepository.findAll().stream()
+                .map(this::convertirAUsuarioDetails)
+                .collect(Collectors.toList());
+    }
+
+    private UsuarioDetails convertirAUsuarioDetails(UsuariosEntity usuario) {
+        List<RolUsuariosInterface> rolesInterface = usuario.getRolUsuariosByIdUsuario().stream()
+                .map(rolUsuarioEntity -> new RolUsuariosInterfaceImpl(rolUsuarioEntity.getRolIdRol(), rolUsuarioEntity.getRolByRolIdRol()))
+                .collect(Collectors.toList());
+
+        PersonaInterface personaInterface = new PersonaInterfaceImpl(
+                usuario.getPersonaByPersonaIdPersona2().getIdPersona(),
+                usuario.getPersonaByPersonaIdPersona2().getNombres(),
+                usuario.getPersonaByPersonaIdPersona2().getApellido(),
+                usuario.getPersonaByPersonaIdPersona2().getIdentificacion(),
+                usuario.getPersonaByPersonaIdPersona2().getFechaNacimiento()
+        );
+
+        return new UsuarioDetailsImpl(
+                usuario.getIdUsuario(),
+                usuario.getUserName(),
+                usuario.getMail(),
+                rolesInterface,
+                personaInterface
+        );
+    }
+
 }

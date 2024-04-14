@@ -1,42 +1,44 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../services/dashboard.service';
-import { AuthService } from '../../services/auth.service'; // Asegúrate de tener este servicio
-import { Router } from '@angular/router'; // Para redirigir al usuario después del logout
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 import { UserDetails } from '../../models/user-details.model';
+
 @Component({
   selector: 'app-dashboard',
-  standalone: false,
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  blockedUsersCount: number = 0;
-  activeUsersCount: number = 0; // Definición de la variable
   userDetails: UserDetails | null = null;
+  usersList: UserDetails[] = [];
+
   constructor(
     private dashboardService: DashboardService,
-    private authService: AuthService, // Inyecta el AuthService
-    private router: Router // Inyecta el Router
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.loadUserDetails();
-    this.loadActiveUsers();
-    this.blockedUsersCount = 0;
+    this.loadUsersList();
   }
+
   loadUserDetails() {
     const userDetailsJson = localStorage.getItem('userDetails');
     if (userDetailsJson) {
       this.userDetails = JSON.parse(userDetailsJson);
     }
   }
-  loadActiveUsers(): void {
-    this.dashboardService.getActiveUsersCount().subscribe(
-      (count: number) => {
-        this.activeUsersCount = count; // Actualización de la variable basada en los datos del servicio
+
+  loadUsersList(): void {
+    const idUsuario = this.getCurrentidUsuario();
+      this.dashboardService.getUsuariosList(idUsuario).subscribe(
+      (users: UserDetails[]) => {
+        this.usersList = users;
       },
       error => {
-        console.error('Error loading active users count', error);
+        console.error('Error loading users list', error);
       }
     );
   }
@@ -58,8 +60,6 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-
-
   private getCurrentidUsuario(): number {
     const userIdString = localStorage.getItem('idUsuario');
     if (userIdString === null) {
@@ -69,6 +69,4 @@ export class DashboardComponent implements OnInit {
     }
     return parseInt(userIdString, 10);
   }
-
-
 }

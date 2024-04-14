@@ -7,10 +7,13 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class DashboardService {
+  private usuariosUrl = `${environment.apiBaseUrl}/usuarios/admin/usuarios`;
 
   constructor(private http: HttpClient) { }
 
-  getActiveUsersCount(): Observable<number> {
-    return this.http.get<number>('/api/users/active/count');
+  getUsuariosList(idUsuario: number): Observable<UserDetails[]> {
+    const url = `${this.usuariosUrl}/${idUsuario}`;
+    return this.http.post<UserDetails[]>(url, { idUsuario });
   }
 }
+
